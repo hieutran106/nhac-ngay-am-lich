@@ -147,7 +147,7 @@ function getLeapMonthOffset(a11, timeZone) {
 }
 
 /* Convert solar date dd/mm/yyyy to the corresponding lunar date */
-function convertSolar2Lunar(dd, mm, yy, timeZone) {
+export function convertSolar2Lunar(dd, mm, yy, timeZone) {
     var k, dayNumber, monthStart, a11, b11, lunarDay, lunarMonth;
     var lunarYear, lunarLeap, diff, leapMonthDiff;
     dayNumber = jdFromDate(dd, mm, yy);
@@ -189,7 +189,7 @@ function convertSolar2Lunar(dd, mm, yy, timeZone) {
 }
 
 /* Convert a lunar date to the corresponding solar date */
-function convertLunar2Solar(lunarDay, lunarMonth, lunarYear, lunarLeap, timeZone) {
+export function convertLunar2Solar(lunarDay, lunarMonth, lunarYear, lunarLeap, timeZone) {
     var k, a11, b11, off, leapOff, leapMonth, monthStart;
     if (lunarMonth < 11) {
         a11 = getLunarMonth11(lunarYear - 1, timeZone);
