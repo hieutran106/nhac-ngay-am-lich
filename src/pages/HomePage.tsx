@@ -1,22 +1,11 @@
 import { YearEventsComponent } from "../components/YearEvents.tsx";
-import type { LunarEvent, SolarEvent, YearEvents } from "../model";
-import { convertSolar2Lunar, convertLunar2Solar } from "../utils/lunar.js";
+import type { SolarEvent, YearEvents } from "../model";
+import { convertLunar2Solar } from "../utils/lunar.js";
 
 import { groupBy } from "es-toolkit/array";
-import { format, addDays, isWithinInterval } from "date-fns";
+import { addDays, isWithinInterval } from "date-fns";
 import { useNavigate } from "react-router";
 import { useStore } from "../store.ts";
-
-function getDateParts(date: Date) {
-    const dd = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
-    const year = String(date.getFullYear());
-    return {
-        day: dd,
-        month,
-        year
-    };
-}
 
 export function HomePage() {
     const navigate = useNavigate();
@@ -26,7 +15,7 @@ export function HomePage() {
     let events: SolarEvent[] = [];
     for (const year of years) {
         for (const lunarEvent of lunarEvents) {
-            const { lunarDay, lunarMonth, desc } = lunarEvent;
+            const { lunarDay, lunarMonth } = lunarEvent;
             const [solarDay, solarMonth, solarYear] = convertLunar2Solar(lunarDay, lunarMonth, year, 0, 7);
             events.push({
                 ...lunarEvent,

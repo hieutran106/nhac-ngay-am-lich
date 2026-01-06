@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type { LunarEvent } from "./model";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 
 interface AppState {
     lunarEvents: LunarEvent[];

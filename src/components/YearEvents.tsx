@@ -1,5 +1,5 @@
-import type { LunarEvent, YearEvents } from "../model.ts";
-import { getYear, previousSaturday, format } from "date-fns";
+import type { YearEvents } from "../model.ts";
+import { previousSaturday, format } from "date-fns";
 
 const dayOfWeekMapper: any = {
     Monday: "Thứ hai",
