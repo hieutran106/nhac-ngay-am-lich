@@ -19,9 +19,18 @@ const parseNamePattern = (input: string): ParsedData | null => {
 
     const { num1, num2, desc } = match.groups;
 
+    const firstNumber = parseInt(num1, 10);
+    const secondNumber = parseInt(num2, 10);
+    if (firstNumber < 0 || firstNumber > 30) {
+        return null;
+    }
+    if (secondNumber < 0 || secondNumber > 12) {
+        return null;
+    }
+
     return {
-        firstNumber: parseInt(num1, 10),
-        secondNumber: parseInt(num2, 10),
+        firstNumber,
+        secondNumber,
         description: desc.trim()
     };
 };
@@ -45,14 +54,20 @@ export function AddPage() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const result = parseNamePattern(text);
+        if (!result) {
+            alert("Sai định dạng. Vui lòng nhập dữ liệu theo định dạng [ngày/tháng {ghi chú}]`. Ví dụ:\n `19/1 Giỗ ông Hảo`\n`15/7 Rằm tháng bảy`");
+            return;
+        }
+        const { firstNumber, secondNumber, description } = result;
+
         if (result) {
             console.log(result);
             setText("");
             const newLunarEvent: LunarEvent = {
                 id: crypto.randomUUID(),
-                lunarDay: result.firstNumber,
-                lunarMonth: result.secondNumber,
-                desc: result.description
+                lunarDay: firstNumber,
+                lunarMonth: secondNumber,
+                desc: description
             };
             add(newLunarEvent);
         }
